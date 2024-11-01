@@ -8,29 +8,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
     return;
   }
 
+  // Function to show the modal
   function showModal(imgSrc, imgAlt, description, brand, owner) {
     if (imgSrc) {
-        modalImg.src = imgSrc;
-        modalImg.alt = imgAlt;
-        document.getElementById("modal-description").textContent = description || "No description available.";
-        document.getElementById("modal-brand").textContent = brand ? `Brand: ${brand}` : "Brand: Unknown";
-        document.getElementById("modal-owner").textContent = owner ? `Owner: ${owner}` : "Owner: Unknown";
-        modal.style.display = "flex";
+      modalImg.src = imgSrc;
+      modalImg.alt = imgAlt;
+      document.getElementById("modal-description").textContent = description || "No description available.";
+      document.getElementById("modal-brand").textContent = brand ? `Brand: ${brand}` : "Brand: Unknown";
+      document.getElementById("modal-owner").textContent = owner ? `Owner: ${owner}` : "Owner: Unknown";
+      modal.style.display = "flex";
     }
-}
+  }
 
-
-
-overlays.forEach((overlay, index) => {
-  overlay.addEventListener("click", () => {
+  // Add click event listeners to each overlay
+  overlays.forEach((overlay, index) => {
+    overlay.addEventListener("click", () => {
       const img = overlay.previousElementSibling;
       const { src, alt, description, brand, owner } = images[index];
       showModal(src, alt, description, brand, owner);
+    });
   });
-});
 
-
-  modal.addEventListener("dblclick", (event) => {
+  // Close the modal on a single tap outside the image on mobile or on click outside image on desktop
+  modal.addEventListener("click", (event) => {
     if (event.target !== modalImg) {
       modal.style.display = "none";
       modalImg.src = "";
@@ -38,6 +38,7 @@ overlays.forEach((overlay, index) => {
     }
   });
 });
+
 
 
 // Does the full screen image on click function
